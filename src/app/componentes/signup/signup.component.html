@@ -7,37 +7,57 @@
 
                 </div>
                 <h1 class="text-center">Registrate aqui</h1>
-                <form action="">
+                <form                 
+                [formGroup]="formUsuario" 
+                class = "user" 
+                (ngSubmit)="agregarUsuario()"
+                >
                     <mat-form-field class="full-width" appearance="outline">
                         <mat-label>Usuario</mat-label>
-                        <input matInput placeholder="Ingrese su nombre de usuario">
-                        <mat-icon matSuffix>perm_identity</mat-icon> 
+                        <input required =" text" formControlName="nombreUsuario" matInput placeholder="Ingrese su nombre de usuario">
+                        <mat-icon matSuffix>person_pin</mat-icon> 
                     </mat-form-field>
                     <mat-form-field class="full-width" appearance="outline">
                         <mat-label>Contraseña</mat-label>
-                        <input type="password" matInput placeholder="Ingrese su contraseña">
+                        <input required type="password" matInput placeholder="Ingrese su contraseña">
                         <mat-icon matSuffix>visibility_off</mat-icon>
                     </mat-form-field>
                     <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Nombre</mat-label>
+                        <input required type=" text" formControlName="nombre" matInput placeholder="Ingrese su nombre">
+                        <mat-icon matSuffix>perm_identity</mat-icon> 
+                    </mat-form-field>
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Apellidos</mat-label>
+                        <input required type=" text" formControlName="apellidos" matInput placeholder="Ingrese sus apellidos">
+                        <mat-icon matSuffix>perm_identity</mat-icon> 
+                    </mat-form-field>
+                    <mat-form-field class="full-width" appearance="outline">
                         <mat-label>Número telefónico</mat-label>
-                        <input matInput placeholder="Ingrese su número de teléfono">
+                        <input required type="number" formControlName="telefonoUsuario" matInput placeholder="Ingrese su número de teléfono" >
                         <mat-icon matSuffix>phone</mat-icon>
                     </mat-form-field>
                     <mat-form-field class="full-width" appearance="outline">
-                        <mat-label>Número de documento</mat-label>
-                        <input matInput placeholder="Ingrese su número de documento">
-                        <mat-icon matSuffix>assignment_ind</mat-icon>
-                    </mat-form-field>
-                    <mat-form-field class="full-width" appearance="outline">
                         <mat-label>Correo electrónico</mat-label>
-                        <input type="email" matInput placeholder="Ingrese un correo electrónico valido">
+                        <input required type="email" formControlName="correoElectronico" matInput placeholder="Ingrese un correo electrónico válido">
                         <mat-icon matSuffix>email</mat-icon>
                     </mat-form-field>
-
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Número de documento</mat-label>
+                        <input required type=" text" formControlName="numeroDocumentoUsuario" matInput placeholder="Ingrese su número de documento">
+                        <mat-icon matSuffix>assignment_ind</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field class="full-width" appearance="fill">
+                        <mat-label>Tipo de documento</mat-label>
+                        <mat-select formControlName="tipoDocumento">
+                            <mat-option *ngFor="let tipoDocumento of tipoDocumentos" [value]="tipoDocumento.value">
+                              {{tipoDocumento.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
                     <div class="container text-center">
                         <button mat-raised-button color="primary">Registrar</button>
-                        <button mat-raised-button style="margin-left: 20px" color="warn">Limpiar
-                        </button>
+                        <button mat-raised-button type="reset" style="margin-left: 20px" color="warn">Limpiar </button>
                     </div>
                 </form>
             </div>
