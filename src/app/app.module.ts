@@ -18,6 +18,12 @@ import { MatCardModule } from '@angular/material/card';
 import { HomeComponent } from './componentes/home/home.component';
 import { NavbarComponent } from './componentes/navbar/navbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { ReservaComponent } from './componentes/reserva/reserva.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { NumberPickerComponent } from './componentes/components/number-picker/number-picker.component'; 
+
 
 @NgModule({
   declarations: [
@@ -25,9 +31,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     SignupComponent,
     LoginComponent,
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    ReservaComponent,
+    NumberPickerComponent
   ],
   imports: [
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatTableModule,
     MatToolbarModule,
     MatCardModule,
     MatSnackBarModule,

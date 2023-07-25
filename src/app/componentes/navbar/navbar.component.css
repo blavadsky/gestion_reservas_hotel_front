@@ -1,4 +1,9 @@
+.toolbar-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
 .example-spacer {
-    margin-left: 70px;
     flex: 1 1 auto;
 }

@@ -73,7 +73,6 @@ export class SignupComponent implements OnInit {
   }
 
 
-
   tipoDocumentos: TipoDocumento[] = [
     {value: 'CEDULA_CIUDADANIA', viewValue: 'Cédula de ciudadanía'},
     {value: 'CEDULA_EXTRANJERIA', viewValue: 'Cédula de extranjería'},
