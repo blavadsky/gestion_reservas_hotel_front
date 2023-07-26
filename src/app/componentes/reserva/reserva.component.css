@@ -27,6 +27,9 @@
   .table-container {
     display: flex;
     justify-content: center;
-    margin-left: 500px; /* Ajusta este valor para controlar el espacio hacia la izquierda */
-    margin-right: 100px;
+    margin-left: 170px;
+    margin-right: 180px;
   }
+
+
+

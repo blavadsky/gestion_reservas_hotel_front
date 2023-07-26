@@ -4,7 +4,10 @@ import { MatDateRangePicker } from '@angular/material/datepicker';
 import { HotelDTO } from 'src/app/models/hotel';
 import { HotelService } from 'src/app/servicios/hotel.service';
 
-
+interface CantidadReserva {
+  value: string;
+  viewValue: string;
+} 
 
 @Component({
   selector: 'app-reserva',
@@ -15,6 +18,7 @@ export class ReservaComponent {
   hoteles: HotelDTO[] = [];
   numeroPersonasControl = new FormControl(1);
   numeroHabitacionesControl = new FormControl(1);
+
 
   constructor(private hotelService: HotelService) {}
 
@@ -38,8 +42,12 @@ export class ReservaComponent {
   dateRangePicker!: MatDateRangePicker<any>;
 
   reservar() {
-    // Mostrar el calendario al hacer clic en el botón "Reservar"
     this.dateRangePicker.open();
   }
+
+  cantidadReservas: CantidadReserva[] = [
+    {value: 'personas', viewValue: 'Personas'},
+    {value: 'habitaciones-1', viewValue: 'Habitaciones'},
+  ];
 
 }

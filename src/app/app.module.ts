@@ -23,6 +23,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NumberPickerComponent } from './componentes/components/number-picker/number-picker.component'; 
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatMenuModule } from '@angular/material/menu';
+
 
 
 @NgModule({
@@ -36,6 +39,8 @@ import { NumberPickerComponent } from './componentes/components/number-picker/nu
     NumberPickerComponent
   ],
   imports: [
+    MatMenuModule,
+    MatGridListModule,
     MatNativeDateModule,
     MatDatepickerModule,
     MatTableModule,

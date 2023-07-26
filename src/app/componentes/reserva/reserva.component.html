@@ -1,53 +1,54 @@
-<mat-form-field>
-  <label>Personas</label>
-  <app-number-picker [value]="numeroPersonasControl.value ?? 1" (valueChange)="numeroPersonasControl.setValue($event)"></app-number-picker>
-</mat-form-field>
+<!--Opciones de reserva-->
+<mat-grid-list cols="3" rowHeight="70px" class="table-container">
+  <mat-grid-tile>
+    <ng-container >
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Fecha de entrada">
+        <input matEndDate placeholder="Fecha de salida">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </ng-container>
+  </mat-grid-tile>
+  <mat-grid-tile >
+    <mat-select>
+      <mat-option>
+        <label>Personas</label>
+        <app-number-picker [value]="numeroPersonasControl.value ?? 1" (valueChange)="numeroPersonasControl.setValue($event)">
+        </app-number-picker>
+      </mat-option>
+      <mat-option>
+        <label>Habitaciones</label>
+        <app-number-picker [value]="numeroHabitacionesControl.value ?? 1" (valueChange)="numeroHabitacionesControl.setValue($event)">
+        </app-number-picker>
+      </mat-option>
+    </mat-select>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button color="warn">Buscar</button>
+  </mat-grid-tile>
+</mat-grid-list>
 
-<mat-form-field>
-  <label>Habitaciones</label>
-  <app-number-picker [value]="numeroHabitacionesControl.value ?? 1" (valueChange)="numeroHabitacionesControl.setValue($event)"></app-number-picker>
-</mat-form-field>
-
-
-
-<mat-form-field >
-  <mat-label>Calendario</mat-label>
-  <mat-date-range-input [rangePicker]="picker">
-    <input matStartDate placeholder="Fecha de entrada">
-    <input matEndDate placeholder="Fecha de salida">
-  </mat-date-range-input>
-  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-date-range-picker #picker></mat-date-range-picker>
-  <mat-label>Personas</mat-label>
-</mat-form-field> 
-
-
-<div class="table-container">
-
-
+<!--Tabla con información de hoteles-->
+<div >
+  <mat-card class="table-container">
     <table mat-table [dataSource]="hoteles">
-
-        <!-- Columna para el nombre del hotel -->
-      
+      <ng-container matColumnDef="filtros">
+        <th mat-header-cell *matHeaderCellDef>Filtros</th>
+        <td mat-cell *matCellDef="let hotel">ass</td>
+      </ng-container>
         <ng-container matColumnDef="nombreHotel">
           <th mat-header-cell *matHeaderCellDef> Nombre del Hotel </th>
           <td mat-cell *matCellDef="let hotel"> {{ hotel.nombreHotel }} </td>
         </ng-container>
-     
-        <!-- Agregar más columnas según necesites mostrar más datos de los hoteles -->
-      
-        <!-- Columna para botones de acciones (opcional) -->
         <ng-container matColumnDef="acciones">
           <th mat-header-cell *matHeaderCellDef> Acciones </th>
           <td mat-cell *matCellDef="let hotel">
             <button mat-raised-button color="primary" (click)="reservar()">Reservar</button>
           </td>
         </ng-container>
-      
-        <!-- Definir las columnas que se mostrarán en la tabla -->
-        <tr mat-header-row *matHeaderRowDef="['nombreHotel', 'acciones']"></tr>
-        <tr mat-row *matRowDef="let row; columns: ['nombreHotel', 'acciones']"></tr>
-
+        <tr mat-header-row *matHeaderRowDef="['filtros','nombreHotel', 'acciones']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['filtros','nombreHotel', 'acciones']"></tr>
     </table>
-
- </div>   
+  </mat-card>
+ </div>
