@@ -24,45 +24,9 @@ export class HotelesComponent {
     direccionCorreoHotel: new FormControl('', Validators.required),
     numeroHabitacionesHotel: new FormControl('', Validators.required)
   })
-
   
   constructor(private hotelService:HotelService, private hotelDataService: HotelDataService, private snack:MatSnackBar){}
   ngOnInit(): void {}
-
-  // public agregarHotel() {
-  //   if (this.formHotel.valid) {
-  //     const hotelData = {
-  //       nombreHotel: this.formHotel.get('nombreHotel')?.value || '',
-  //       telefonoHotel: this.formHotel.get('telefonoHotel')?.value || '',
-  //       direccionCorreoHotel: this.formHotel.get('direccionCorreoHotel')?.value || '',
-  //       numeroHabitacionesHotel: Number(this.formHotel.get('numeroHabitacionesHotel')?.value) || 0
-  //     };
-  //     this.hotelService.agregarHotel(hotelData).subscribe(
-  //       (hotel: HotelDTO) => {
-  //         this.snack.open('Hotel creado exitosamente', 'Cerrar', {
-  //           duration: 2000,
-  //           horizontalPosition: 'center',
-  //           verticalPosition: 'top'
-  //         });
-  //         this.actualizarListaHoteles();
-  //       },
-  //       (error) => {
-  //         console.error('Error al agregar el hotel', error);
-  //       }
-  //     );
-  //   }
-  // }
-
-  // private actualizarListaHoteles() {
-  //   this.hotelService.listarHoteles().subscribe(
-  //     (hoteles: HotelDTO[]) => {
-  //       this.hotelDataService.actualizarHoteles(hoteles);
-  //     },
-  //     (error) => {
-  //       console.error('Error al obtener la lista de hoteles', error);
-  //     }
-  //   );
-  // }
 
   public agregarHotel() {
     if (this.formHotel.valid) {
@@ -74,10 +38,7 @@ export class HotelesComponent {
       numeroHabitacionesHotel:Number (this.formHotel.get('numeroHabitacionesHotel')?.value) || 0
       
     };
-    console.log("Creado hotel1");
       this.hotelService.agregarHotel(hotelData);
-      console.log(hotelData);
-      console.log("Creado hotelscss");
     }
   }
 
