@@ -7,15 +7,15 @@
                         <img src="../../../assets/login.png" width="100" height="100">
                     </div>
                     <h1 class = "text-center">Inicio de sesión</h1>
-                    <form>
+                    <form [formGroup]="formLogIn" (ngSubmit)="iniciarSesion()">
                         <mat-form-field class="full-width" appearance="outline">
                             <mat-label>Usuario</mat-label>
-                            <input required =" text" formControlName="nombreUsuario" matInput placeholder="Ingrese su nombre de usuario">
+                            <input required =" text" formControlName="correoElectronico" matInput placeholder="Ingrese su correo electrónico">
                             <mat-icon matSuffix>account_box</mat-icon> 
                         </mat-form-field>
                         <mat-form-field class="full-width" appearance="outline">
                             <mat-label>Contraseña</mat-label>
-                            <input required =" text" formControlName="nombreUsuario" matInput placeholder="Ingrese su contraseña de usuario">
+                            <input type="password" required =" text" formControlName="contrasena" matInput placeholder="Ingrese su contraseña">
                             <mat-icon matSuffix>fingerprint</mat-icon> 
                         </mat-form-field>
                         <br><br>

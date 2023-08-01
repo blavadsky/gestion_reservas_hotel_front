@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDateRangePicker } from '@angular/material/datepicker';
 import { HotelDTO } from 'src/app/models/hotel';
+import { HotelDataService } from 'src/app/servicios/hotel-data.service';
 import { HotelService } from 'src/app/servicios/hotel.service';
 
 interface CantidadReserva {
@@ -20,22 +21,30 @@ export class ReservaComponent {
   numeroHabitacionesControl = new FormControl(1);
 
 
-  constructor(private hotelService: HotelService) {}
+  constructor(private hotelService: HotelService, private hotelDataService: HotelDataService,) {}
 
   ngOnInit() {
-    this.obtenerHoteles();
+    this.hotelDataService.hoteles$.subscribe((hoteles: HotelDTO[]) => {
+      this.hoteles = hoteles;
+    });
+
+//    this.obtenerHoteles();
   }
 
-  obtenerHoteles() {
-    this.hotelService.listarHoteles().subscribe(
-      (hoteles: any) => {
-        this.hoteles = hoteles;
-      },
-      (error) => {
-        console.error('Error al obtener la lista de hoteles', error);
-      }
-    );
-  }
+
+
+  // obtenerHoteles() {
+  //   this.hotelService.listarHoteles().subscribe(
+      
+  //     (hoteles: any) => {
+  //       this.hoteles = hoteles;
+  //       console.log(hoteles);
+  //     },
+  //     (error) => {
+  //       console.error('Error al obtener la lista de hoteles', error);
+  //     }
+  //   );
+  // }
 
 
   @ViewChild('picker')

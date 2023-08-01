@@ -25,6 +25,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { NumberPickerComponent } from './componentes/components/number-picker/number-picker.component'; 
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
+import { HotelesComponent } from './componentes/components/hoteles/hoteles.component';
 
 
 
@@ -36,7 +37,8 @@ import { MatMenuModule } from '@angular/material/menu';
     HomeComponent,
     NavbarComponent,
     ReservaComponent,
-    NumberPickerComponent
+    NumberPickerComponent,
+    HotelesComponent
   ],
   imports: [
     MatMenuModule,

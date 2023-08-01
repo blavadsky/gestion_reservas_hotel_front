@@ -1,17 +1,14 @@
 <mat-toolbar color="primary" class="toolbar-container">
-    <a [routerLink]="'/'"
-        mat-icon-button class = "example-icon" aria-label="Example icon-button with menu icon">
-        <mat-icon>menu_books</mat-icon>
-        <span>Portal de hoteles</span>
-    </a>
-        <span class="example-spacer"></span>
-        
-        <a [routerLink]="'/signup'" mat-icon-button  class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+        <a [routerLink]="'/signup'" class="mat-icon-button" mat-icon-button  aria-label="Example icon-button with heart icon">
         Registrarse
         </a>
-        <a [routerLink]="'/login'" mat-icon-button class="example-icon favorite-icon mr10 ml70" aria-label="Example icon-button with heart icon">
-        Iniciar sesión
+        <a [routerLink]="'/login'" class="mat-icon-button" mat-icon-button aria-label="Example icon-button with heart icon">
+        Iniciar Sesión
         </a>
-    
-    
+        <a [routerLink]="'/hoteles'" class="mat-icon-button" mat-icon-button *ngIf="isAdmin" aria-label="Example icon-button with heart icon">
+        Crear Hotel
+        </a>
+        <a [routerLink]="'/reserva'" class="mat-icon-button" mat-icon-button *ngIf="isLoggedIn"  aria-label="Example icon-button with heart icon">
+        Crear Reserva
+        </a>
 </mat-toolbar>

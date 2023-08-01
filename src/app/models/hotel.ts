@@ -2,8 +2,7 @@
 
 export class HotelDTO {
 constructor() {}
-
-idHotel: number = 0;
+idHotel: string = '';
 nombreHotel: string = '';
 telefonoHotel: string = '';
 direccionCorreoHotel: string = '';
