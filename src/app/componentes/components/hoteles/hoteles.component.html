@@ -1,0 +1,43 @@
+<div class="bootstrap-wrapper"> 
+    <div class="container">
+        <div class="row" style="margin: top 20px">
+            <div class="col-md-6 offset-md-3">
+
+                <h1 class="text-center">Nuevo hotel</h1>
+                <form                 
+                [formGroup]="formHotel" (submit)="onSubmit()"
+                >
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>ID de hotel</mat-label>
+                        <input required type="text" formControlName="idHotel" matInput placeholder="Ingrese un correo electrónico válido">
+                        <mat-icon matSuffix>ID</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Nombre del hotel</mat-label>
+                        <input required type="email" formControlName="nombreHotel" matInput placeholder="Ingrese un correo electrónico válido">
+                        <mat-icon matSuffix>email</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Teléfono del hotel</mat-label>
+                        <input required type="password" formControlName="telefonoHotel" matInput placeholder="Ingrese su contraseña">
+                        <mat-icon matSuffix>visibility_off</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Dirección del hotel</mat-label>
+                        <input required type=" text" formControlName="direccionCorreoHotel" matInput placeholder="Ingrese su nombre">
+                        <mat-icon matSuffix>perm_identity</mat-icon> 
+                    </mat-form-field>
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Capacidad del hotel</mat-label>
+                        <input required type=" text" formControlName="numeroHabitacionesHotel" matInput placeholder="Ingrese sus apellidos">
+                        <mat-icon matSuffix>perm_identity</mat-icon> 
+                    </mat-form-field>
+                    <div class="container text-center">
+                        <button type="submit" mat-raised-button color="primary">Crear Hotel</button>
+                        <button mat-raised-button type="reset" style="margin-left: 20px" color="warn">Limpiar </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

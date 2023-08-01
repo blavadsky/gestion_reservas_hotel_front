@@ -4,6 +4,8 @@
     align-items: center;
   }
 
-.example-spacer {
-    flex: 1 1 auto;
+
+.mat-icon-button {
+  margin-left: 15px;
+  margin-right: 150px; 
 }

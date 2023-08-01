@@ -15,7 +15,7 @@ export class UserService {
   }
 
   public obtenerUsuario(id: number) {
-    return this.http.get(this.urlUsuarios + '/obtenerUsuario?numeroDocumentoUsuario' + id)
+    return this.http.get(this.urlUsuarios + '/obtenerUsuario?numeroDocumento' + id)
   }
 
 }
