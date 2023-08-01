@@ -1,8 +1,8 @@
 <mat-toolbar color="primary" class="toolbar-container">
-        <a [routerLink]="'/signup'" class="mat-icon-button" mat-icon-button  aria-label="Example icon-button with heart icon">
+        <a [routerLink]="'/signup'" class="mat-icon-button" mat-icon-button *ngIf="!isLoggedIn" aria-label="Example icon-button with heart icon">
         Registrarse
         </a>
-        <a [routerLink]="'/login'" class="mat-icon-button" mat-icon-button aria-label="Example icon-button with heart icon">
+        <a [routerLink]="'/login'" class="mat-icon-button" mat-icon-button *ngIf="!isLoggedIn" aria-label="Example icon-button with heart icon" >
         Iniciar Sesión
         </a>
         <a [routerLink]="'/hoteles'" class="mat-icon-button" mat-icon-button *ngIf="isAdmin" aria-label="Example icon-button with heart icon">
@@ -10,5 +10,8 @@
         </a>
         <a [routerLink]="'/reserva'" class="mat-icon-button" mat-icon-button *ngIf="isLoggedIn"  aria-label="Example icon-button with heart icon">
         Crear Reserva
+        </a>
+        <a [routerLink]="'/reserva'" class="mat-icon-button" mat-icon-button *ngIf="isLoggedIn" (click)="logout()" aria-label="Example icon-button with heart icon">
+        Cerrar sesión
         </a>
 </mat-toolbar>

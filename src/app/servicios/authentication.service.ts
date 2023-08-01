@@ -14,7 +14,7 @@ export class AuthenticationService {
   private urlAuth = environment.urlAuth;
   token: any;
   
-  private authTokenKey = 'auth_token'; // Nombre de la clave para almacenar el token en el almacenamiento local
+  private authTokenKey = 'auth_token'; 
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -28,9 +28,23 @@ export class AuthenticationService {
       });  
   }
 
-  logout() {
-    localStorage.removeItem('token');
+  getUsuarioRol(): string | null {
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+      const decodedToken: any = jwt_decode(token);
+      return decodedToken.rol;
+    }
+    return null;
   }
+
+  logout() {
+    localStorage.removeItem('auth_token');
+    localStorage.removeItem('user_type');
+
+    // Optionally, you can redirect the user to the login page after logout
+    this.router.navigate(['/login']);
+  }
+  
 
   public get logIn(): boolean {
     return (localStorage.getItem('token') !== null);
@@ -66,5 +80,3 @@ export class AuthenticationService {
   }
 
 }
-
-
