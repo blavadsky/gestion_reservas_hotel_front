@@ -37,10 +37,8 @@ export class MisReservasComponent {
       this.reservaService.eliminarReserva(reserva.id).subscribe(resultado => {
         if (resultado) {
           console.log("eliminado ");
-          // Eliminación exitosa, actualiza la lista de reservas
           this.reservas = this.reservas.filter(r => r.id !== reserva.id);
         } else {
-          // Mostrar un mensaje de error si la eliminación falla
           console.log('Error al eliminar la reserva.');
         }
       });
@@ -56,11 +54,9 @@ export class MisReservasComponent {
   guardarCambios(reservas: any) {
     this.reservaService.actualizarReserva(reservas).subscribe(
       (respuesta) => {
-        // Manejo de la respuesta exitosa
         reservas.enEdicion = false;
       },
       (error) => {
-        // Manejo del error
       }
     );
   }

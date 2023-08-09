@@ -9,6 +9,7 @@ import { HotelService } from 'src/app/servicios/hotel.service';
 import { ReservaService } from 'src/app/servicios/reserva.service';
 import Swal from 'sweetalert2';
 import jwt_decode from 'jwt-decode';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 interface CantidadReserva {
@@ -26,7 +27,7 @@ export class ReservaComponent {
   fechaForm!: FormGroup;
   hotelId: any;
 
-  constructor(private reservaService: ReservaService,private hotelService: HotelService, private hotelDataService: HotelDataService, private formBuilder: FormBuilder, private http: HttpClient) {}
+  constructor(private reservaService: ReservaService,private hotelService: HotelService, private hotelDataService: HotelDataService, private formBuilder: FormBuilder, private http: HttpClient, private snack:MatSnackBar) {}
 
 
   ngOnInit() {
@@ -44,12 +45,11 @@ export class ReservaComponent {
     
     const token = localStorage.getItem('auth_token');
   
-  if (token) {
-    const decodedToken: any = jwt_decode(token);
-    
-    this.fechaForm.get('usuario')?.setValue(decodedToken.sub);
-  }
-
+    if (token) {
+      const decodedToken: any = jwt_decode(token);
+      
+      this.fechaForm.get('usuario')?.setValue(decodedToken.sub);
+    }
   }
 
   public crearReserva() {
@@ -63,9 +63,16 @@ export class ReservaComponent {
       }
       this.reservaService.crearReserva(reservaRequest).subscribe(
         (response) => {
+          Swal.fire('Reserva creada', 'Reserva guardada en el sistema exitosamente', 'success')
+          .then(() => this.fechaForm.reset())
           console.log('Reserva creada:', response);
         },
         (error) => {
+          this.snack.open('La reserva no se ha creado con éxito.','Aceptar', {
+            duration : 2000,
+            verticalPosition: 'top',
+            horizontalPosition: 'center'
+          });
           console.error('Error al crear reserva:', error);
         }
       );

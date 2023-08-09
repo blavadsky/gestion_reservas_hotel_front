@@ -40,6 +40,10 @@ export class HotelesComponent {
       const hotelData = this.formHotel.value;
       this.hotelService.agregarHotel(hotelData).subscribe(
         (response) => {
+          Swal.fire('Hotel creado', 'Hotel creado exitosamente en el sistema.', 'success')
+          .then(() => {
+            this.formHotel.reset(); this.obtenerHoteles();
+          });
           console.log('Hotel creado:', response);
         },
         (error) => {
@@ -72,11 +76,9 @@ export class HotelesComponent {
   guardarCambios(hotel: any) {
     this.hotelService.actualizarHotel(hotel).subscribe(
       (respuesta) => {
-        // Manejo de la respuesta exitosa
         hotel.enEdicion = false;
       },
       (error) => {
-        // Manejo del error
       }
     );
   }

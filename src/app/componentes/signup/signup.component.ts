@@ -19,8 +19,7 @@ interface TipoDocumento {
 })
 
 export class SignupComponent implements OnInit {
-  // public Iusuario: any = {};
-  // public usuarioObtenido?: Observable<any>;
+
 
   formUsuario: FormGroup;
   tipoDocumentos: TipoDocumento[] = [
@@ -48,11 +47,16 @@ export class SignupComponent implements OnInit {
       const datosSignUp = this.formUsuario.value;
       this.authenticationService.signUp(datosSignUp).subscribe(
         (response) => {
-          // Usuario registrado exitosamente, puedes hacer algo con la respuesta si es necesario
-          console.log('Usuario registrado:', response);
+          Swal.fire('Usuario guardado', 'Usuario registrado exitosamente en el sistema', 'success')
+          .then(()=>{this.formUsuario.reset();
+        });
         },
         (error) => {
-          // Manejo de errores en caso de que el registro falle
+          this.snack.open('El usuario no ha sido creado con éxito.','Aceptar', {
+          duration : 2000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center'
+        });
           console.error('Error al registrar el usuario:', error);
         }
       );
@@ -61,78 +65,6 @@ export class SignupComponent implements OnInit {
     }
   }
 
-  // public formUsuario = new FormGroup({
-  //   contrasena: new FormControl('', Validators.required),
-  //   nombre: new FormControl('', Validators.required),
-  //   apellidos: new FormControl('', Validators.required),
-  //   numeroDocumento: new FormControl('', Validators.required),
-  //   telefono: new FormControl('', Validators.required),
-  //   correoElectronico: new FormControl('', Validators.required),
-  //   tipoDocumento: new FormControl('', Validators.required)
-  // })
-
-  
-
-  // public signUp() {
-  //   if (this.formUsuario.valid) {
-  //     const usuario = {
-  //       contrasena: this.formUsuario.get('contrasena')!.value,
-  //       nombre: this.formUsuario.get('nombre')!.value,
-  //       apellidos: this.formUsuario.get('apellidos')!.value,
-  //       numeroDocumento: this.formUsuario.get('numeroDocumento')!.value,
-  //       telefono: this.formUsuario.get('telefono')!.value,
-  //       correoElectronico: this.formUsuario.get('correoElectronico')!.value,
-  //       tipoDocumento: this.formUsuario.get('tipoDocumento')!.value,
-  //     };
-  
-  //     this.authenticationService.signUp(usuario);
-  //     console.log(usuario);
-  //   }
-  // }  
-      // .subscribe((respuesta) => {
-    //     this.Iusuario = respuesta;
-    //     Swal.fire('Usuario guardado', 'Usuario registrado exitosamente en el sistema', 'success')
-    //     .then(()=> {
-    //       this.formUsuario.reset();
-    //     });
-    //   }, (error) => {
-    //     this.snack.open('El usuario no ha sido creado con éxito.','Aceptar', {
-    //       duration : 2000,
-    //       verticalPosition: 'top',
-    //       horizontalPosition: 'center'
-    //     });
-    //   });
-    // } else {
-    //   // Si el formulario no es válido, puedes mostrar un mensaje de error o realizar alguna acción adicional.
-    // }
-
-  
-
-  // public agregarUsuario() {
-  //   let usuario = {
-  //     contrasena: this.formUsuario.get('contrasena')?.value,
-  //     nombre: this.formUsuario.get('nombre')?.value,
-  //     apellidos: this.formUsuario.get('apellidos')?.value,
-  //     numeroDocumento: this.formUsuario.get('numeroDocumento')?.value,
-  //     telefono: this.formUsuario.get('telefono')?.value,
-  //     correoElectronico: this.formUsuario.get('correoElectronico')?.value,
-  //     tipoDocumento: this.formUsuario.get('tipoDocumento')?.value,
-  //   };
-
-  //   this.userService.agregarUsuario(usuario).subscribe((respuesta) => {
-  //     this.Iusuario = respuesta;
-  //     Swal.fire('Usuario guardado', 'Usuario registrado exitosamente en el sistema', 'success')
-  //     .then(()=> {
-  //       this.formUsuario.reset();
-  //     })
-  //   }, (error) => {
-  //     this.snack.open('El usuario no ha sido creado con éxito.','Aceptar', {
-  //       duration : 2000,
-  //       verticalPosition: 'top',
-  //       horizontalPosition: 'center'
-  //     });
-  //   }) 
-  // }
 
   public obtenerUsuario() {
     this.userService.obtenerUsuario(1).subscribe(
