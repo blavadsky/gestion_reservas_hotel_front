@@ -7,5 +7,4 @@ nombreHotel: string = '';
 telefonoHotel: string = '';
 direccionCorreoHotel: string = '';
 numeroHabitacionesHotel: number = 0;
-
 }
