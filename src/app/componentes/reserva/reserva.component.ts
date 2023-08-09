@@ -1,9 +1,15 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDateRangePicker } from '@angular/material/datepicker';
 import { HotelDTO } from 'src/app/models/hotel';
+import { ReservaRequest } from 'src/app/models/reservaRequest';
 import { HotelDataService } from 'src/app/servicios/hotel-data.service';
 import { HotelService } from 'src/app/servicios/hotel.service';
+import { ReservaService } from 'src/app/servicios/reserva.service';
+import Swal from 'sweetalert2';
+import jwt_decode from 'jwt-decode';
+
 
 interface CantidadReserva {
   value: string;
@@ -17,42 +23,84 @@ interface CantidadReserva {
 })
 export class ReservaComponent {
   hoteles: HotelDTO[] = [];
-  numeroPersonasControl = new FormControl(1);
-  numeroHabitacionesControl = new FormControl(1);
+  fechaForm!: FormGroup;
+  hotelId: any;
 
+  constructor(private reservaService: ReservaService,private hotelService: HotelService, private hotelDataService: HotelDataService, private formBuilder: FormBuilder, private http: HttpClient) {}
 
-  constructor(private hotelService: HotelService, private hotelDataService: HotelDataService,) {}
 
   ngOnInit() {
     this.hotelDataService.hoteles$.subscribe((hoteles: HotelDTO[]) => {
       this.hoteles = hoteles;
+      this.fechaForm = this.formBuilder.group({
+        fechaInicio: '',
+        fechaFin: '',
+        capacidadHotel: 1,
+        hotelId: '',
+        usuario: ''
+      });
     });
-
-//    this.obtenerHoteles();
+    this.obtenerHoteles();
+    
+    const token = localStorage.getItem('auth_token');
+  
+  if (token) {
+    const decodedToken: any = jwt_decode(token);
+    
+    this.fechaForm.get('usuario')?.setValue(decodedToken.sub);
   }
 
+  }
 
+  public crearReserva() {
+    if(this.fechaForm.valid) {
+      const reservaRequest = {
+        hotelId: this.hotelId || '',
+        fechaInicio: this.fechaForm.get('fechaInicio')?.value.toISOString().split('T')[0],
+        fechaFin: this.fechaForm.get('fechaFin')?.value.toISOString().split('T')[0],
+        capacidadHotel: this.fechaForm.get('capacidadHotel')?.value || '',
+        usuario: this.fechaForm.get('usuario')?.value || ''
 
-  // obtenerHoteles() {
-  //   this.hotelService.listarHoteles().subscribe(
-      
-  //     (hoteles: any) => {
-  //       this.hoteles = hoteles;
-  //       console.log(hoteles);
-  //     },
-  //     (error) => {
-  //       console.error('Error al obtener la lista de hoteles', error);
-  //     }
-  //   );
+      };
+      this.reservaService.crearReserva(reservaRequest);
+        console.log(reservaRequest);
+        console.log('Usuario: ', this.fechaForm.get('usuario')?.value);
+
+    }
+  }
+
+  reservar(hotelId: any) {
+    this.hotelId = hotelId;
+    this.dateRangePicker.open();
+  }
+
+  // public solicitarReserva() {
+  //   if(this.fechaForm.valid) {
+  //     const reservaRequest = this.fechaForm.value;
+  //     this.crearReserva();
+  //     Swal.fire('Reserva creada', 'Reserva guardada exitosamente', 'success')
+  //     console.log(this.fechaForm)
+  //   } else {
+  //   }
   // }
+
+  obtenerHoteles() {
+    this.hotelService.listarHoteles().subscribe(
+      
+      (hoteles: any) => {
+        this.hoteles = hoteles;
+        console.log("Hoteles creados: ", hoteles);
+      },
+      (error) => {
+        console.error('Error al obtener la lista de hoteles', error);
+      }
+    );
+  }
 
 
   @ViewChild('picker')
   dateRangePicker!: MatDateRangePicker<any>;
 
-  reservar() {
-    this.dateRangePicker.open();
-  }
 
   cantidadReservas: CantidadReserva[] = [
     {value: 'personas', viewValue: 'Personas'},

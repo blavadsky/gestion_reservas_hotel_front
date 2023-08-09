@@ -4,6 +4,18 @@ import { map } from 'rxjs/internal/operators/map';
 import { environment } from 'src/environments/environment.prod';
 import jwt_decode from 'jwt-decode';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+
+interface DatosSignUp {
+  contrasena: string | null;
+  nombre: string | null;
+  apellidos: string | null;
+  numeroDocumento: string | null;
+  telefono: string | null;
+  correoElectronico: string | null;
+  tipoDocumento: string | null;
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +29,11 @@ export class AuthenticationService {
   private authTokenKey = 'auth_token'; 
 
   constructor(private http: HttpClient, private router: Router) { }
+
+  public signUp(datosSignUp : DatosSignUp) {
+    console.log("Desde el servicio auth" , datosSignUp);
+    return this.http.post(this.urlAuth + '/signup', datosSignUp);
+  }
 
   login(email: string, password: string) {
     this.http.post(`${this.urlAuth}/signin`, { correoElectronico: email, contrasena: password})
@@ -40,8 +57,6 @@ export class AuthenticationService {
   logout() {
     localStorage.removeItem('auth_token');
     localStorage.removeItem('user_type');
-
-    // Optionally, you can redirect the user to the login page after logout
     this.router.navigate(['/login']);
   }
   

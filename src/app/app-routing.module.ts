@@ -5,13 +5,15 @@ import { LoginComponent } from './componentes/login/login.component';
 import { HomeComponent } from './componentes/home/home.component';
 import { ReservaComponent } from './componentes/reserva/reserva.component';
 import { HotelesComponent } from './componentes/components/hoteles/hoteles.component';
+import { MisReservasComponent } from './componentes/mis-reservas/mis-reservas.component';
 
 const routes: Routes = [
   {path:'home', component: HomeComponent},
-  {path: 'signup', component: SignupComponent},
+  {path:'signup', component: SignupComponent},
   {path:'login', component: LoginComponent},
   {path:'reserva', component: ReservaComponent},
-  {path: 'hoteles', component: HotelesComponent}
+  {path:'hoteles', component: HotelesComponent},
+  {path:'mis-reservas', component: MisReservasComponent}
 ];
 
 @NgModule({

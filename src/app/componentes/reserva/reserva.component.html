@@ -1,36 +1,27 @@
 <!--Opciones de reserva-->
+<form [formGroup]="fechaForm" (submit)="crearReserva()">
 <mat-grid-list cols="3" rowHeight="70px" class="table-container">
   <mat-grid-tile>
     <ng-container >
       <mat-date-range-input [rangePicker]="picker">
-        <input matStartDate placeholder="Fecha de entrada">
-        <input matEndDate placeholder="Fecha de salida">
+        <input matStartDate placeholder="Fecha de entrada" formControlName="fechaInicio">
+        <input matEndDate placeholder="Fecha de salida" formControlName="fechaFin">
       </mat-date-range-input>
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-date-range-picker #picker></mat-date-range-picker>
     </ng-container>
   </mat-grid-tile>
-  <mat-grid-tile >
-    <mat-select>
-      <mat-option>
-        <label>Personas</label>
-        <app-number-picker [value]="numeroPersonasControl.value ?? 1" (valueChange)="numeroPersonasControl.setValue($event)">
-        </app-number-picker>
-      </mat-option>
-      <mat-option>
-        <label>Habitaciones</label>
-        <app-number-picker [value]="numeroHabitacionesControl.value ?? 1" (valueChange)="numeroHabitacionesControl.setValue($event)">
-        </app-number-picker>
-      </mat-option>
-    </mat-select>
-  </mat-grid-tile>
+    <mat-grid-tile >
+      <mat-label>Cantidad de habitaciones</mat-label>
+        <input placeholder="Cantidad de habitaciones" formControlName ="capacidadHotel">
+    </mat-grid-tile>
   <mat-grid-tile>
-    <button mat-raised-button color="warn">Buscar</button>
+    <button mat-raised-button color="warn">Reservar</button>
   </mat-grid-tile>
 </mat-grid-list>
-
+</form>
 <!--Tabla con información de hoteles-->
-<div >
+<div>
   <mat-card class="table-container">
     <table mat-table [dataSource]="hoteles">
       <ng-container matColumnDef="filtros">
@@ -41,14 +32,18 @@
           <th mat-header-cell *matHeaderCellDef> Nombre del Hotel </th>
           <td mat-cell *matCellDef="let hotel"> {{ hotel.nombreHotel }} </td>
         </ng-container>
+        <ng-container matColumnDef="numeroHabitacionesHotel">
+          <th mat-header-cell *matHeaderCellDef> Habitaciones disponibles </th>
+          <td mat-cell *matCellDef="let hotel"> {{ hotel.numeroHabitacionesHotel }} </td>
+        </ng-container>
         <ng-container matColumnDef="acciones">
           <th mat-header-cell *matHeaderCellDef> Acciones </th>
           <td mat-cell *matCellDef="let hotel">
-            <button mat-raised-button color="primary" (click)="reservar()">Reservar</button>
+            <button mat-raised-button color="primary" (click)="reservar(hotel.idHotel)">Solicitar Reserva</button>
           </td>
         </ng-container>
-        <tr mat-header-row *matHeaderRowDef="['filtros','nombreHotel', 'acciones']"></tr>
-        <tr mat-row *matRowDef="let row; columns: ['filtros','nombreHotel', 'acciones']"></tr>
+        <tr mat-header-row *matHeaderRowDef="['nombreHotel','numeroHabitacionesHotel', 'acciones']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['nombreHotel', 'numeroHabitacionesHotel' ,'acciones']"></tr>
     </table>
   </mat-card>
  </div>

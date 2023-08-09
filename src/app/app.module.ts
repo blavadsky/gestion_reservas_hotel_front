@@ -26,6 +26,7 @@ import { NumberPickerComponent } from './componentes/components/number-picker/nu
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { HotelesComponent } from './componentes/components/hoteles/hoteles.component';
+import { MisReservasComponent } from './componentes/mis-reservas/mis-reservas.component';
 
 
 
@@ -38,7 +39,8 @@ import { HotelesComponent } from './componentes/components/hoteles/hoteles.compo
     NavbarComponent,
     ReservaComponent,
     NumberPickerComponent,
-    HotelesComponent
+    HotelesComponent,
+    MisReservasComponent
   ],
   imports: [
     MatMenuModule,

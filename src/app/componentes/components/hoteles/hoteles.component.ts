@@ -36,7 +36,6 @@ export class HotelesComponent {
       telefonoHotel: this.formHotel.get('telefonoHotel')?.value || '',
       direccionCorreoHotel: this.formHotel.get('direccionCorreoHotel')?.value || '',
       numeroHabitacionesHotel:Number (this.formHotel.get('numeroHabitacionesHotel')?.value) || 0
-      
     };
       this.hotelService.agregarHotel(hotelData);
     }

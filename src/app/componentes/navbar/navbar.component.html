@@ -11,6 +11,9 @@
         <a [routerLink]="'/reserva'" class="mat-icon-button" mat-icon-button *ngIf="isLoggedIn"  aria-label="Example icon-button with heart icon">
         Crear Reserva
         </a>
+        <a [routerLink]="'/mis-reservas'" class="mat-icon-button" mat-icon-button *ngIf="isLoggedIn" aria-label="Example icon-button with heart icon">
+        Mis Reservas
+        </a>
         <a [routerLink]="'/reserva'" class="mat-icon-button" mat-icon-button *ngIf="isLoggedIn" (click)="logout()" aria-label="Example icon-button with heart icon">
         Cerrar sesión
         </a>
