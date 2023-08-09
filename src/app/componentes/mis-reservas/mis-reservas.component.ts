@@ -29,8 +29,42 @@ export class MisReservasComponent {
         this.reservas = res;
       })
     }
-
   }
+
+
+  eliminarReserva(reserva: ReservaDTO) {
+    if (reserva.id !== undefined) {
+      this.reservaService.eliminarReserva(reserva.id).subscribe(resultado => {
+        if (resultado) {
+          console.log("eliminado ");
+          // Eliminación exitosa, actualiza la lista de reservas
+          this.reservas = this.reservas.filter(r => r.id !== reserva.id);
+        } else {
+          // Mostrar un mensaje de error si la eliminación falla
+          console.log('Error al eliminar la reserva.');
+        }
+      });
+    } else {
+      console.log('No se puede eliminar la reserva sin un ID.');
+    }
+  }
+
+  habilitarEdicion(reservas: any) {
+    reservas.enEdicion = true;
+  }
+
+  guardarCambios(reservas: any) {
+    this.reservaService.actualizarReserva(reservas).subscribe(
+      (respuesta) => {
+        // Manejo de la respuesta exitosa
+        reservas.enEdicion = false;
+      },
+      (error) => {
+        // Manejo del error
+      }
+    );
+  }
+
 
 }
 

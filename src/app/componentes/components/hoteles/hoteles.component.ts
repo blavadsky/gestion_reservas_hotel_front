@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { HotelDTO } from 'src/app/models/hotel';
@@ -16,38 +16,89 @@ import Swal from 'sweetalert2'
   styleUrls: ['./hoteles.component.css']
 })
 export class HotelesComponent {
-
-  public formHotel = new FormGroup({
-    idHotel: new FormControl('', Validators.required),
-    nombreHotel: new FormControl('', Validators.required),
-    telefonoHotel: new FormControl('', Validators.required),
-    direccionCorreoHotel: new FormControl('', Validators.required),
-    numeroHabitacionesHotel: new FormControl('', Validators.required)
-  })
+  formHotel: FormGroup;
+  hoteles: HotelDTO[] = [];
   
-  constructor(private hotelService:HotelService, private hotelDataService: HotelDataService, private snack:MatSnackBar){}
-  ngOnInit(): void {}
-
-  public agregarHotel() {
-    if (this.formHotel.valid) {
-    const hotelData = {
-      idHotel: this.formHotel.get('idHotel')?.value || '',
-      nombreHotel: this.formHotel.get('nombreHotel')?.value || '',
-      telefonoHotel: this.formHotel.get('telefonoHotel')?.value || '',
-      direccionCorreoHotel: this.formHotel.get('direccionCorreoHotel')?.value || '',
-      numeroHabitacionesHotel:Number (this.formHotel.get('numeroHabitacionesHotel')?.value) || 0
-    };
-      this.hotelService.agregarHotel(hotelData);
-    }
+  constructor(private formBuilder: FormBuilder, private hotelService:HotelService, private hotelDataService: HotelDataService, private snack:MatSnackBar){
+    this.formHotel = this.formBuilder.group({
+      idHotel: ['', Validators.required],
+      nombreHotel: ['', Validators.required],
+      telefonoHotel: ['', Validators.required],
+      direccionCorreoHotel: ['', Validators.required],
+      numeroHabitacionesHotel: ['', Validators.required]
+    });
+  }
+  ngOnInit(): void {
+    this.hotelDataService.hoteles$.subscribe((hoteles: HotelDTO[]) => {
+      this.hoteles = hoteles;
+    }); 
+    this.obtenerHoteles();
   }
 
-  public onSubmit() {
+  onSubmit() {
     if (this.formHotel.valid) {
       const hotelData = this.formHotel.value;
-      this.agregarHotel();
-      Swal.fire('Hotel creado', 'Hotel creado exitosamente', 'success')
+      this.hotelService.agregarHotel(hotelData).subscribe(
+        (response) => {
+          console.log('Hotel creado:', response);
+        },
+        (error) => {
+          console.error('Error al crear hotel:', error);
+        }
+      );
     } else {
+      console.warn('Formulario no válido. Revise los campos.');
     }
   }
+
+
+  obtenerHoteles() {
+    this.hotelService.listarHoteles().subscribe(
+      
+      (hoteles: any) => {
+        this.hoteles = hoteles;
+        console.log("Hoteles creados <<<z : ", hoteles);
+      },
+      (error) => {
+        console.error('Error al obtener la lista de hoteles', error);
+      }
+    );
+  }
+
+  habilitarEdicion(hotel: any) {
+    hotel.enEdicion = true;
+  }
+
+  guardarCambios(hotel: any) {
+    this.hotelService.actualizarHotel(hotel).subscribe(
+      (respuesta) => {
+        // Manejo de la respuesta exitosa
+        hotel.enEdicion = false;
+      },
+      (error) => {
+        // Manejo del error
+      }
+    );
+  }
+
+
+  eliminarHotel(hotel: HotelDTO) {
+    if (hotel.idHotel !== undefined) {
+      const idHotelNumero = Number(hotel.idHotel);
+      this.hotelService.eliminarHotel(idHotelNumero).subscribe(resultado => {
+        if (resultado) {
+          console.log("eliminado ");
+          this.hoteles = this.hoteles.filter(r => r.idHotel !== hotel.idHotel);
+        } else {
+          console.log('Error al eliminar el hotel.');
+        }
+      });
+    } else {
+      console.log('No se puede eliminar el hotel sin un ID.');
+    }
+  }
+
+
+  
 }
  

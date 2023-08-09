@@ -27,7 +27,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { HotelesComponent } from './componentes/components/hoteles/hoteles.component';
 import { MisReservasComponent } from './componentes/mis-reservas/mis-reservas.component';
-
+import { FormsModule } from '@angular/forms'; 
 
 
 @NgModule({
@@ -43,6 +43,7 @@ import { MisReservasComponent } from './componentes/mis-reservas/mis-reservas.co
     MisReservasComponent
   ],
   imports: [
+    FormsModule,
     MatMenuModule,
     MatGridListModule,
     MatNativeDateModule,

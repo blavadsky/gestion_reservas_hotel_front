@@ -39,7 +39,7 @@ export class ReservaComponent {
         hotelId: '',
         usuario: ''
       });
-    });
+    }); 
     this.obtenerHoteles();
     
     const token = localStorage.getItem('auth_token');
@@ -53,37 +53,34 @@ export class ReservaComponent {
   }
 
   public crearReserva() {
-    if(this.fechaForm.valid) {
+    if (this.fechaForm.valid) {
       const reservaRequest = {
         hotelId: this.hotelId || '',
         fechaInicio: this.fechaForm.get('fechaInicio')?.value.toISOString().split('T')[0],
         fechaFin: this.fechaForm.get('fechaFin')?.value.toISOString().split('T')[0],
         capacidadHotel: this.fechaForm.get('capacidadHotel')?.value || '',
         usuario: this.fechaForm.get('usuario')?.value || ''
-
-      };
-      this.reservaService.crearReserva(reservaRequest);
-        console.log(reservaRequest);
-        console.log('Usuario: ', this.fechaForm.get('usuario')?.value);
-
+      }
+      this.reservaService.crearReserva(reservaRequest).subscribe(
+        (response) => {
+          console.log('Reserva creada:', response);
+        },
+        (error) => {
+          console.error('Error al crear reserva:', error);
+        }
+      );
+    } else {
+      console.warn('Formulario no válido. Revise los campos.');
     }
   }
+
 
   reservar(hotelId: any) {
     this.hotelId = hotelId;
     this.dateRangePicker.open();
   }
 
-  // public solicitarReserva() {
-  //   if(this.fechaForm.valid) {
-  //     const reservaRequest = this.fechaForm.value;
-  //     this.crearReserva();
-  //     Swal.fire('Reserva creada', 'Reserva guardada exitosamente', 'success')
-  //     console.log(this.fechaForm)
-  //   } else {
-  //   }
-  // }
-
+  
   obtenerHoteles() {
     this.hotelService.listarHoteles().subscribe(
       
